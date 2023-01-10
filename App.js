@@ -8,6 +8,9 @@ import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealDetailScreen from "./screens/MealDetailScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
+// import FavoriteContextProvider from "./store/context/favorites-context";
+import { Provider } from "react-redux";
+import { store } from "./store/redux/store";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,40 +57,44 @@ export default function App() {
    return (
       <>
          <StatusBar style="light" />
-         <NavigationContainer>
-            <Stack.Navigator
-               screenOptions={{
-                  headerStyle: { backgroundColor: "#351401" },
-                  headerTintColor: "white",
-                  contentStyle: { backgroundColor: "#7c706a" },
-               }}
-            >
-               <Stack.Screen
-                  name="Drawer"
-                  component={DrawerNavigator}
-                  options={{
-                     headerShown: false,
+         {/* <FavoriteContextProvider> */}
+         <Provider store={store}>
+            <NavigationContainer>
+               <Stack.Navigator
+                  screenOptions={{
+                     headerStyle: { backgroundColor: "#351401" },
+                     headerTintColor: "white",
+                     contentStyle: { backgroundColor: "#7c706a" },
                   }}
-               />
-               <Stack.Screen
-                  name="MealsOverview"
-                  component={MealsOverviewScreen}
-                  // options={({ route, navigation }) => {
-                  //    const catId = route.params.categoryId;
-                  //    return {
-                  //       title: catId,
-                  //    };
-                  // }}
-               />
-               <Stack.Screen
-                  name="MealDetail"
-                  component={MealDetailScreen}
-                  options={{
-                     title: "About the Meal",
-                  }}
-               />
-            </Stack.Navigator>
-         </NavigationContainer>
+               >
+                  <Stack.Screen
+                     name="Drawer"
+                     component={DrawerNavigator}
+                     options={{
+                        headerShown: false,
+                     }}
+                  />
+                  <Stack.Screen
+                     name="MealsOverview"
+                     component={MealsOverviewScreen}
+                     // options={({ route, navigation }) => {
+                     //    const catId = route.params.categoryId;
+                     //    return {
+                     //       title: catId,
+                     //    };
+                     // }}
+                  />
+                  <Stack.Screen
+                     name="MealDetail"
+                     component={MealDetailScreen}
+                     options={{
+                        title: "About the Meal",
+                     }}
+                  />
+               </Stack.Navigator>
+            </NavigationContainer>
+         </Provider>
+         {/* </FavoriteContextProvider> */}
       </>
    );
 }
